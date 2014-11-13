@@ -53,7 +53,7 @@ int WINAPI _tWinMain( HINSTANCE hInstance,
 
 	// Step 2: Create the Main Window.
 	HWND hWnd = CreateWindow(wcex.lpszClassName,
-		_T("Real-Time Skeleton"),
+		_T("Pong!"),
 		WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT, CW_USEDEFAULT,
 		816, 642,

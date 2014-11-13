@@ -1,5 +1,7 @@
 #pragma once
 
+//Includes
+#if 1
 #include <Windows.h> // Include the Win32 API
 #include <tchar.h> // Include support for UNICODE
 #include <sstream> // Include wostringstream support
@@ -16,10 +18,15 @@ using std::wostringstream;
 
 // WIC
 #include <wincodec.h>
-#pragma comment (lib, "windowscodecs.lib")
+#pragma comment (lib, "windowscodecs.lib")  
+#endif 
+
 
 class Game
 {
+
+//Stuff
+#if 1
 	// Window Handle:
 	HWND hWnd;
 
@@ -36,7 +43,7 @@ class Game
 	}
 
 	// Programmer defined macro to make using the known colors easier.
-	#define D2DColor(clr) D2D1::ColorF(D2D1::ColorF::clr)
+#define D2DColor(clr) D2D1::ColorF(D2D1::ColorF::clr)
 
 	HRESULT CreateGraphics(HWND hWnd);
 	void DestroyGraphics(void);
@@ -52,26 +59,69 @@ class Game
 	// DirectWrite Interfaces:
 	IDWriteFactory* pDWFactory;
 	IDWriteTextFormat* pTF;
+#endif 
+
+
+	/****************** Game Components **********************/
 
 	// WIC Interface
 	IWICImagingFactory* pWICFactory;
-	ID2D1Bitmap* background1;
-	ID2D1Bitmap* background2;
-	ID2D1Bitmap* sprite;
-	ID2D1Bitmap* particle;
+	ID2D1Bitmap* bg1;
+	ID2D1Bitmap* bg2;
+	ID2D1Bitmap* bg3;
+	ID2D1Bitmap* ball;
+	ID2D1Bitmap* ship;
+	ID2D1Bitmap* enemy;
 
-	// Game Components:
+
+
+	//Background 1
+	D2D1_RECT_F bg1pos;
+	D2D1_SIZE_F bg1vec;
+
+	//Background 2
+	D2D1_RECT_F bg2pos;
+	D2D1_SIZE_F bg2vec;
+
+	//Background 3
+	D2D1_RECT_F bg3pos;
+	D2D1_SIZE_F bg3vec;
+
+	//Ball
+	float ballSpriteHeight;
+	float ballSpriteWidth;
+	int ballAnimationFramesX;
+	int ballAnimationFramesY;
 	D2D1_RECT_F ballpos;
 	D2D1_SIZE_F ballvec;
+	float ballFrameWidth;
+	float ballFrameHeight;
+	DWORD dwTimeBall;
 
-	D2D1_RECT_F paddlepos;
-	D2D1_SIZE_F paddlevec;
 
-	D2D1_RECT_F bgpos;
-	D2D1_SIZE_F bgvec;
+	// Ship 
+	float shipSpriteHeight;
+	float shipSpriteWidth;
+	int shipAnimationFrames;
+	D2D1_RECT_F shipPos;
+	D2D1_SIZE_F shipVec;
+	float shipFrameWidth;
+	float shipFrameHeight;
+	DWORD dwTimeShip;
 
-	D2D1_RECT_F fgpos;
-	D2D1_SIZE_F fgvec;
+	// Enemy 
+	float enemySpriteHeight;
+	float enemySpriteWidth;
+	int enemyAnimationFramesX;
+	int enemyAnimationFramesY;
+	D2D1_RECT_F enemyPos;
+	D2D1_SIZE_F enemyVec;
+	float enemyFrameWidth;
+	float enemyFrameHeight;
+	DWORD dwTimeEnemy;
+
+	//Other
+	bool ballCollided = false;
 
 	// Variables used to calculate frames per second:
 	DWORD dwFrames;
